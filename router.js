@@ -53,19 +53,61 @@ router.post('/consumeNLU', (req, res) => {
 
     naturalLanguageUnderstanding.analyze(analyzeParams)
         .then(analysisResults => {
-            var aux = JSON.stringify(analysisResults, null, 2)
-            console.log(aux.emotion);
+            var aux = JSON.stringify(analysisResults, null, 2);
+            console.log(aux);
             
         })
         .catch(err => {
             console.log('error:', err);
         });
     console.log(text);
-    res.render('opinon');
+    res.render('codigoPromocion');
+});
+
+router.post('/consumeNLUB', (req, res) => {
+    const text = req.body.comentario;
+    const analyzeParams = {
+        "text": text,
+        "features": {
+            "entities": {
+                "model": "042ae203-1b0d-4917-b9ab-a0186e225fb8"
+            },
+            "keywords": {
+                "emotion": true,
+                "sentiment": true
+            },
+            "emotion": {
+                "sentiment": true
+            },
+            "categories": {
+                "sentiment": true
+            },
+            "relations": {
+                "model": "042ae203-1b0d-4917-b9ab-a0186e225fb8"
+            },
+            "sentiment": {}
+        }
+    };
+
+    naturalLanguageUnderstanding.analyze(analyzeParams)
+        .then(analysisResults => {
+            var aux = JSON.stringify(analysisResults, null, 2);
+            console.log(aux);
+            
+        })
+        .catch(err => {
+            console.log('error:', err);
+        });
+    console.log(text);
+    res.render('codigoPromocionB');
 });
 
 router.get('/opinion', (req, res) => {
     res.render('opinon');
+});
+
+router.get('/opinionbuena', (req, res) => {
+    res.render('opinionb');
 });
 
 router.get('/', (req, res) => {
